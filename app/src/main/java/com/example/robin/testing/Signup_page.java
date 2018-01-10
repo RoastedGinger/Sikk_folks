@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -64,6 +65,10 @@ public class Signup_page extends Fragment {
                             }
                         }
                     });
+                }
+
+                else{
+                    Toast.makeText(getActivity(),"please fill out the form correctly",Toast.LENGTH_LONG).show();
                 }
             }
         });
