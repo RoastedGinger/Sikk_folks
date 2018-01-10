@@ -33,8 +33,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/signin"
         android:layout_below="@+id/password_layout"
-        android:layout_toRightOf="@+id/signup"
-        android:onClick="Signin_fragment"
         android:text="Sign in"/>
 </RelativeLayout>

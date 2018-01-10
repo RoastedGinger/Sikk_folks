@@ -60,6 +60,7 @@ public class Signup_page extends Fragment {
                                 String userId = mauth.getCurrentUser().getUid();
                                 DatabaseReference current_user_database = databaseReference.child(userId);
                                 current_user_database.child("Name").setValue(name.getText().toString());
+                                startActivity(new Intent(getActivity(),Home_page.class));
                             }
                         }
                     });
