@@ -1,5 +1,6 @@
 package com.example.robin.testing;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,6 +31,7 @@ public class Home_page extends AppCompatActivity {
         {
             firebaseAuth = FirebaseAuth.getInstance();
             firebaseAuth.signOut();
+            startActivity(new Intent(Home_page.this,Authentication_page.class));
         }
         return super.onOptionsItemSelected(item);
     }

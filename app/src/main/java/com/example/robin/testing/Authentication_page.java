@@ -38,5 +38,4 @@ public class Authentication_page extends AppCompatActivity {
             fragmentTransaction.commit();
         }
      }
-
 }
