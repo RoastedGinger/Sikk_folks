@@ -31,10 +31,32 @@ public class Signin_form extends Fragment {
     private FirebaseAuth.AuthStateListener authStateListener;
     EditText email,pass;
     Button signin;
+    String email1,pass1;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.signin_form,container,false);
+        View view =inflater.inflate(R.layout.signin_form,container,false);
+
+        if(savedInstanceState==null)
+        {
+            email1=null;
+            pass1=null;
+        }
+        else {
+            email1 = savedInstanceState.getString("email");
+            pass1 = savedInstanceState.getString("password");
+        }
+        return view;
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("email",email1);
+        outState.putString("password",pass1);
     }
 
     @Override
@@ -59,8 +81,8 @@ public class Signin_form extends Fragment {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email1 = email.getText().toString();
-                String pass1 = pass.getText().toString();
+               email1 = email.getText().toString();
+               pass1 = pass.getText().toString();
                 if(TextUtils.isEmpty(email1)||TextUtils.isEmpty(pass1))
                 {
                     Toast.makeText(getActivity(),"enter both values",Toast.LENGTH_SHORT).show();

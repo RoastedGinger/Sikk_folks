@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.support.v4.app.FragmentActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -33,10 +33,19 @@ public class Signup_page extends Fragment {
     DatabaseReference databaseReference;
     Button signup;
     TextView signin;
+
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.signup_page,container,false);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
     }
 
     @Override
@@ -66,27 +75,26 @@ public class Signup_page extends Fragment {
                         }
                     });
                 }
-
                 else{
                     Toast.makeText(getActivity(),"please fill out the form correctly",Toast.LENGTH_LONG).show();
                 }
             }
         });
 
-        signin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            signin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                FragmentManager fragmentManager = getFragmentManager();
-                Signin_form signin_form = new Signin_form();
-                Signup_page signup_page = (Signup_page) fragmentManager.findFragmentByTag("signup");
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.remove(signup_page);
-                fragmentTransaction.addToBackStack("check");
-                fragmentTransaction.add(R.id.auth_class,signin_form,"signin");
-                fragmentTransaction.commit();
-            }
-        });
+                    FragmentManager fragmentManager = getFragmentManager();
+                    Signin_form signin_form = new Signin_form();
+                    Signup_page signup_page = (Signup_page) fragmentManager.findFragmentByTag("signup");
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.remove(signup_page);
+                    fragmentTransaction.addToBackStack("check");
+                    fragmentTransaction.add(R.id.auth_class,signin_form,"signin");
+                    fragmentTransaction.commit();
+                }
+            });
 
     }
 }
