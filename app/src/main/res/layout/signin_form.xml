@@ -7,7 +7,9 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/email_layout">
+        android:id="@+id/email_layout"
+        android:layout_margin="5dp"
+        >
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -18,6 +20,7 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:layout_below="@id/email_layout"
         android:id="@+id/password_layout">
 
@@ -25,7 +28,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/password"
-            android:inputType="textPassword"
             android:hint="Password"/>
     </android.support.design.widget.TextInputLayout>
 
