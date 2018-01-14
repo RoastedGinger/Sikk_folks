@@ -12,12 +12,12 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link User_home.OnFragmentInteractionListener} interface
+ * {@link Other_folks.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link User_home#newInstance} factory method to
+ * Use the {@link Other_folks#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class User_home extends Fragment {
+public class Other_folks extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +29,7 @@ public class User_home extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public User_home() {
+    public Other_folks() {
         // Required empty public constructor
     }
 
@@ -39,11 +39,11 @@ public class User_home extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment First.
+     * @return A new instance of fragment Second.
      */
     // TODO: Rename and change types and number of parameters
-    public static User_home newInstance(String param1, String param2) {
-        User_home fragment = new User_home();
+    public static Other_folks newInstance(String param1, String param2) {
+       Other_folks fragment = new Other_folks();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,7 +64,7 @@ public class User_home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.user_home, container, false);
+        return inflater.inflate(R.layout.other_folks, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
