@@ -38,7 +38,7 @@ public class Home_page extends AppCompatActivity implements ActionBar.TabListene
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-
+             ///
     }
 
     @Override
