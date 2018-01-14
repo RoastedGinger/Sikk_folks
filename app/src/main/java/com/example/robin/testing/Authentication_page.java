@@ -28,7 +28,12 @@ public class Authentication_page extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user!=null)
         {
-            startActivity(new Intent(Authentication_page.this,Home_page.class));
+            Intent launchNextActivity;
+            launchNextActivity = new Intent(Authentication_page.this, Home_page.class);
+            launchNextActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            launchNextActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            launchNextActivity.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(launchNextActivity);
         }
         else {
             Signup_page signup_page = new Signup_page();

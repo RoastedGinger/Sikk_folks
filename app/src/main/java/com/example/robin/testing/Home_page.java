@@ -3,6 +3,7 @@ package com.example.robin.testing;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -54,12 +56,8 @@ public class Home_page extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-
-
-        tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#000000"));
+        tabLayout.setTabTextColors(Color.parseColor("#000000"), Color.parseColor("#827717"));
         tabLayout.setSelectedTabIndicatorHeight((int) (2 * getResources().getDisplayMetrics().density));
-
-
         tabLayout.setupWithViewPager(mViewPager);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -72,30 +70,45 @@ public class Home_page extends AppCompatActivity {
         });
 
     }
+            private Boolean exit = false;
+            @Override
+            public void onBackPressed() {
+                if (exit) {
+                    finish(); // finish activity
+                } else {
+                    Toast.makeText(this, "Press Back again to Exit.",
+                            Toast.LENGTH_SHORT).show();
+                    exit = true;
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            exit = false;
+                        }
+                    }, 3 * 1000);
+
+                }
+
+            }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
+            @Override
+            public boolean onCreateOptionsMenu(Menu menu) {
+                getMenuInflater().inflate(R.menu.menu, menu);
+                return true;
+             }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
 
-        int id = item.getItemId();
-        if (id == R.id.signout) {
-            firebaseAuth = FirebaseAuth.getInstance();
-            firebaseAuth.signOut();
-            startActivity(new Intent(Home_page.this, Authentication_page.class));
+            int id = item.getItemId();
+            if (id == R.id.signout) {
+                firebaseAuth = FirebaseAuth.getInstance();
+                firebaseAuth.signOut();
+                startActivity(new Intent(Home_page.this, Authentication_page.class));
+            }
+            return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
-    }
 
     /**
      * A placeholder fragment containing a simple view.
@@ -114,13 +127,13 @@ public class Home_page extends AppCompatActivity {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
+            public static PlaceholderFragment newInstance(int sectionNumber) {
+                PlaceholderFragment fragment = new PlaceholderFragment();
+                Bundle args = new Bundle();
+                args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+                fragment.setArguments(args);
+                return fragment;
+            }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -129,10 +142,10 @@ public class Home_page extends AppCompatActivity {
             if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
                 View rootView = inflater.inflate(R.layout.user_home, container, false);
                 return rootView;
-            } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
-                View rootView = inflater.inflate(R.layout.other_folks, container, false);
-                return rootView;
-            }
+                } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
+                    View rootView = inflater.inflate(R.layout.other_folks, container, false);
+                    return rootView;
+                }
                return  null;
         }
     }
@@ -147,28 +160,28 @@ public class Home_page extends AppCompatActivity {
             super(fm);
         }
 
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 2;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "PAGE 1";
-                case 1:
-                    return "PAGE 2";
+            @Override
+            public Fragment getItem(int position) {
+                // getItem is called to instantiate the fragment for the given page.
+                // Return a PlaceholderFragment (defined as a static inner class below).
+                return PlaceholderFragment.newInstance(position + 1);
             }
-            return null;
-        }
+
+                @Override
+                public int getCount() {
+                    // Show 3 total pages.
+                    return 2;
+                }
+
+                    @Override
+                    public CharSequence getPageTitle(int position) {
+                        switch (position) {
+                            case 0:
+                                return "PAGE 1";
+                            case 1:
+                                return "PAGE 2";
+                        }
+                        return null;
+                    }
     }
 }
