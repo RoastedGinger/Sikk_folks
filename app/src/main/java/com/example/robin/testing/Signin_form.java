@@ -51,7 +51,6 @@ public class Signin_form extends Fragment {
         return view;
     }
 
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -71,12 +70,14 @@ public class Signin_form extends Fragment {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser()!=null)
                 {
-                    Intent intent = new Intent(getActivity(),Home_page.class);
+                    Intent intent = new Intent((Authentication_page)getActivity(),Home_page.class);
                     startActivity(intent);
                 }
             }
 
         };
+
+
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,10 +103,13 @@ public class Signin_form extends Fragment {
         });
 
     }
+
             @Override
             public void onStart() {
                 super.onStart();
                 auth.addAuthStateListener(authStateListener);
             }
+
+
 }
 

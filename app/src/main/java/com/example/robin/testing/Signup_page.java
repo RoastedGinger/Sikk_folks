@@ -90,8 +90,9 @@ public class Signup_page extends Fragment {
                     Signup_page signup_page = (Signup_page) fragmentManager.findFragmentByTag("signup");
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.remove(signup_page);
-                    fragmentTransaction.addToBackStack("check");
+                    fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.add(R.id.auth_class,signin_form,"signin");
+                   // getFragmentManager().popBackStackImmediate();
                     fragmentTransaction.commit();
                 }
             });

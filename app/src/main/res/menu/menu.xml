@@ -6,5 +6,5 @@
         android:id="@+id/signout"
         android:orderInCategory="100"
         android:title="signout"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom|withText" />
 </menu>

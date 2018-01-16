@@ -75,6 +75,7 @@ public class Home_page extends AppCompatActivity {
             @Override
             public void onBackPressed() {
                 if (exit) {
+                    moveTaskToBack(true);
                     finish(); // finish activity
                 } else {
                     Toast.makeText(this, "Press Back again to Exit.",
@@ -166,7 +167,7 @@ public class Home_page extends AppCompatActivity {
                 // getItem is called to instantiate the fragment for the given page.
                 // Return a PlaceholderFragment (defined as a static inner class below).
                 return PlaceholderFragment.newInstance(position + 1);
-            }
+              }
 
                 @Override
                 public int getCount() {
