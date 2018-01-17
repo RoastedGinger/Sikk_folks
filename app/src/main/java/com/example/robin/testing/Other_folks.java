@@ -7,16 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Other_folks.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Other_folks#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Other_folks extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

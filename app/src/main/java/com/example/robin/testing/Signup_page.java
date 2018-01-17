@@ -3,7 +3,9 @@ package com.example.robin.testing;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -51,6 +53,7 @@ public class Signup_page extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        final ConnectivityManager connec1 = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         name = getActivity().findViewById(R.id.name);
         email = getActivity().findViewById(R.id.email);
         password = getActivity().findViewById(R.id.password);
@@ -61,23 +64,31 @@ public class Signup_page extends Fragment {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!TextUtils.isEmpty(name.getText().toString()) && !TextUtils.isEmpty(email.getText().toString()) && !TextUtils.isEmpty(password.getText().toString()))
-                {
-                    mauth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                String userId = mauth.getCurrentUser().getUid();
-                                DatabaseReference current_user_database = databaseReference.child(userId);
-                                current_user_database.child("Name").setValue(name.getText().toString());
-                                startActivity(new Intent(getActivity(),Home_page.class));
+                if(connec1.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
+                        connec1.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                        connec1.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                        connec1.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED) {
+                    if (!TextUtils.isEmpty(name.getText().toString()) && !TextUtils.isEmpty(email.getText().toString()) && !TextUtils.isEmpty(password.getText().toString())) {
+                        mauth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    String userId = mauth.getCurrentUser().getUid();
+                                    DatabaseReference current_user_database = databaseReference.child(userId);
+                                    current_user_database.child("Name").setValue(name.getText().toString());
+                                    startActivity(new Intent(getActivity(), Home_page.class));
+                                }
                             }
-                        }
-                    });
+                        });
+                    } else {
+                        Toast.makeText(getActivity(), "please fill out the form correctly", Toast.LENGTH_LONG).show();
+                    }
                 }
-                else{
-                    Toast.makeText(getActivity(),"please fill out the form correctly",Toast.LENGTH_LONG).show();
+                else if(connec1.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
+                        connec1.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED){
+                    Toast.makeText(getActivity(), "Please check out your internet and try again", Toast.LENGTH_LONG).show();
                 }
+
             }
         });
 
