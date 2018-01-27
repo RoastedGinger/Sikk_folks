@@ -5,7 +5,9 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:fitsSystemWindows="true">
+
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -25,10 +27,11 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/container"
+        android:id="@+id/container_all"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_height="460dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:layout_editor_absoluteY="107dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

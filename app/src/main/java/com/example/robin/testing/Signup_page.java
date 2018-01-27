@@ -6,9 +6,11 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,13 +72,24 @@ public class Signup_page extends Fragment {
                         connec1.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED) {
                     if (!TextUtils.isEmpty(name.getText().toString()) && !TextUtils.isEmpty(email.getText().toString()) && !TextUtils.isEmpty(password.getText().toString())) {
                         mauth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @RequiresApi(api = Build.VERSION_CODES.M)
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     String userId = mauth.getCurrentUser().getUid();
                                     DatabaseReference current_user_database = databaseReference.child(userId);
                                     current_user_database.child("Name").setValue(name.getText().toString());
-                                    startActivity(new Intent(getActivity(), Home_page.class));
+                                    if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M){
+                                        Intent intent = new Intent(getActivity(), Home_page.class);
+                                        startActivity(intent);
+                                    }
+                                    else {
+                                        if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.M) {
+                                            Intent intent = new Intent(getContext(), Home_page.class);
+                                            startActivity(intent);
+                                        }
+                                    }
+
                                 }
                             }
                         });

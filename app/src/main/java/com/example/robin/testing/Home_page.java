@@ -11,6 +11,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -41,18 +42,19 @@ public class Home_page extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (ViewPager) findViewById(R.id.container_all);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setTabTextColors(Color.parseColor("#000000"), Color.parseColor("#827717"));
         tabLayout.setSelectedTabIndicatorHeight((int) (2 * getResources().getDisplayMetrics().density));
         tabLayout.setupWithViewPager(mViewPager);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(Home_page.this,Other_Stuffs.class));
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                      //  .setAction("Action", null).show();
             }
         });
     }
@@ -118,7 +120,7 @@ public class Home_page extends AppCompatActivity {
                 PlaceholderFragment fragment = new PlaceholderFragment();
                 Bundle args = new Bundle();
                 args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-                fragment    .setArguments(args);
+                fragment.setArguments(args);
                 return fragment;
             }
 

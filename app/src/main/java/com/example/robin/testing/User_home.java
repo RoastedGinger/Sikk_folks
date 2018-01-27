@@ -5,10 +5,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 /**
@@ -30,7 +36,7 @@ public class User_home extends Fragment {
     private String mParam2;
     private RecyclerView recyclerView;
     private OnFragmentInteractionListener mListener;
-
+    private DatabaseReference databaseReference;
     public User_home() {
         // Required empty public constructor
     }
@@ -51,6 +57,23 @@ public class User_home extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseRecyclerAdapter <GetterandSetter,ViewHolder> FBRA = new FirebaseRecyclerAdapter<GetterandSetter, ViewHolder>(GetterandSetter.class,
+                R.layout.single_post,
+                ViewHolder.class,
+                databaseReference
+                ) {
+            @Override
+            protected void populateViewHolder(ViewHolder viewHolder, GetterandSetter model, int position) {
+                  viewHolder.setTitle(model.getTitle());
+                  viewHolder.setDesc(model.getDesc());
+            }
+        };
+           recyclerView.setAdapter(FBRA);
     }
 
     @Override
@@ -101,23 +124,38 @@ public class User_home extends Fragment {
      * <p/>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
+
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            View mView =itemView;
+        }
+
+       public void  setTitle(String title){
+           TextView textView = itemView.findViewById(R.id.title);
+           textView.setText(title);
+       }
+       public void setDesc(String desc){
+           TextView textView = itemView.findViewById(R.id.description);
+           textView.setText(desc);
+       }
+    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         recyclerView = getActivity().findViewById(R.id.home_updates);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new RecyclerView.LayoutManager() {
-            @Override
-            public RecyclerView.LayoutParams generateDefaultLayoutParams() {
-                return null;
-            }
-        });
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("PostLike");
     }
+
 }
+

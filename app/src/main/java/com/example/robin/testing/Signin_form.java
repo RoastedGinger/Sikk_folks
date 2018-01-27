@@ -82,12 +82,19 @@ public class Signin_form extends Fragment {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser()!=null) {
-                    try {
-                        Intent intent = new Intent(getContext(), Home_page.class);
-                        startActivity(intent);
-                    } catch (Exception e) {
-                        Intent intent = new Intent(getActivity(), Home_page.class);
-                        startActivity(intent);
+                    if (getActivity() != null) {
+
+                        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M){
+                            Intent intent = new Intent(getActivity(), Home_page.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.M) {
+                                Intent intent = new Intent(getContext(), Home_page.class);
+                                startActivity(intent);
+                            }
+                        }
+
                     }
                 }
             }
@@ -124,18 +131,11 @@ public class Signin_form extends Fragment {
                 }
             }
         });
-
-
-
     }
-
-
     @Override
             public void onStart() {
                 super.onStart();
                 auth.addAuthStateListener(authStateListener);
             }
-
-
-}
+     }
 
